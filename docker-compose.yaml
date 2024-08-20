@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  auth-api:
+    profiles:
+      - prod
+    build: .
+    environment:
+      APP_HOST: 0.0.0.0
+      DB_HOST: postgres
+    ports:
+      - 8080:8080
+
+  postgres:
+    image: postgres:16
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432 
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=user
+      - POSTGRES_DB=auth
+
+volumes:
+  postgres_data:
